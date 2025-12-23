@@ -1,9 +1,11 @@
 package com.aureumpicks.ecommerce.service;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +33,6 @@ public class EmailService {
                         "%s Team",
                 appName, otp, appName
         );
-
         sendEmail(toEmail, subject, body);
     }
 
@@ -48,22 +49,26 @@ public class EmailService {
                         "%s Team",
                 otp, appName
         );
-
         sendEmail(toEmail, subject, body);
     }
 
-    // Generic email sending method
+    // Generic email sending with proper MimeMessage (TLS-friendly)
     private void sendEmail(String toEmail, String subject, String body) {
         try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(fromEmail);
-            message.setTo(toEmail);
-            message.setSubject(subject);
-            message.setText(body);
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setFrom(fromEmail);
+            helper.setTo(toEmail);
+            helper.setSubject(subject);
+            helper.setText(body, false); // false = plain text, true = HTML
 
             mailSender.send(message);
+            System.out.println("Email sent successfully to " + toEmail);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send email (MessagingException): " + e.getMessage(), e);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to send email: " + e.getMessage());
+            throw new RuntimeException("Failed to send email: " + e.getMessage(), e);
         }
     }
 }
