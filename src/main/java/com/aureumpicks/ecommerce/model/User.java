@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +24,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "is_verified", nullable = false)
-    private Boolean isVerified = false;
+    @Column(name = "is_verified", nullable = false)  // is_verifed → is_verified
+    private Boolean isVerified = false;  // isVerifed → isVerified
 
     @Column(length = 6)
     private String otp;

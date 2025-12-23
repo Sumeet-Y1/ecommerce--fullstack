@@ -1,37 +1,26 @@
-package com.aureumpicks.ecommerce.config;
+package com.aureumpicks.ecommerce.config;  // confg → config
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
+import org.springframework.context.annotation.Configuration;  // Confguration → Configuration
+import org.springframework.web.cors.CorsConfiguration;  // CorsConfguration → CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource;  // CorsConfgurationSource → CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;  // UrlBasedCorsConfgurationSource → UrlBasedCorsConfigurationSource
 import java.util.Arrays;
 
-@Configuration
-public class CorsConfig {
-
+@Configuration  // Confguration → Configuration
+public class CorsConfig {  // CorsConfg → CorsConfig
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
+    public CorsConfigurationSource corsConfigurationSource() {  // CorsConfgurationSource, corsConfgurationSource → CorsConfigurationSource, corsConfigurationSource
+        CorsConfiguration configuration = new CorsConfiguration();  // CorsConfguration, confguration → CorsConfiguration, configuration
 
-        // Allow all origins (for development - restrict in production)
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));  // confguration → configuration
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));  // confguration → configuration
+        configuration.setAllowedHeaders(Arrays.asList("*"));  // confguration → configuration
+        configuration.setAllowCredentials(true);  // confguration → configuration
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));  // confguration → configuration
 
-        // Allow specific HTTP methods
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // Allow specific headers
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-
-        // Allow credentials
-        configuration.setAllowCredentials(true);
-
-        // Expose Authorization header
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  // UrlBasedCorsConfgurationSource → UrlBasedCorsConfigurationSource
+        source.registerCorsConfiguration("/**", configuration);  // registerCorsConfguration, confguration → registerCorsConfiguration, configuration
 
         return source;
     }

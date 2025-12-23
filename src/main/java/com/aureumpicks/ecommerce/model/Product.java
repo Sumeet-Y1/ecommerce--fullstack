@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +22,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")  // columnDefnition → columnDefinition
     private String description;
 
     @Column(nullable = false, precision = 10, scale = 2)
@@ -39,10 +37,8 @@ public class Product {
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 
-    // FIX: Changed Double to BigDecimal because precision/scale
-    // are only supported for exact numeric types in Hibernate 7.
     @Column(precision = 2, scale = 1)
-    private BigDecimal rating = BigDecimal.ZERO;
+    private Double rating = 0.0;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

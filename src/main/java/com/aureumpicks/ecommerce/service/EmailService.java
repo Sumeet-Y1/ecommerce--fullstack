@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
-
     @Autowired
     private JavaMailSender mailSender;
 
@@ -19,16 +17,34 @@ public class EmailService {
     @Value("${app.name:AureumPicks}")
     private String appName;
 
-    @Async
-    public void sendVerificationEmail(String toEmail, String otp) {
-        sendEmail(toEmail, "Verify Your Email - " + appName,
-                String.format("Dear User,\n\nYour OTP is: %s\n\n- %s Team", otp, appName));
+    public void sendVerificationEmail(String toEmail, String otp) {  // sendVerifcationEmail → sendVerificationEmail
+        String subject = "Verify Your Email - " + appName;
+        String body = String.format(
+                "Dear User,\n\n" +
+                        "Thank you for registering with %s!\n\n" +
+                        "Your OTP for email verification is: %s\n\n" +  // verifcation → verification
+                        "This OTP will expire in 10 minutes.\n\n" +
+                        "If you didn't request this, please ignore this email.\n\n" +
+                        "Best regards,\n" +
+                        "%s Team",
+                appName, otp, appName
+        );
+        sendEmail(toEmail, subject, body);
     }
 
-    @Async
     public void sendPasswordResetEmail(String toEmail, String otp) {
-        sendEmail(toEmail, "Password Reset - " + appName,
-                String.format("Dear User,\n\nYour password reset OTP is: %s\n\n- %s Team", otp, appName));
+        String subject = "Password Reset Request - " + appName;
+        String body = String.format(
+                "Dear User,\n\n" +
+                        "We received a request to reset your password.\n\n" +
+                        "Your OTP for password reset is: %s\n\n" +
+                        "This OTP will expire in 10 minutes.\n\n" +
+                        "If you didn't request this, please ignore this email and your password will remain unchanged.\n\n" +
+                        "Best regards,\n" +
+                        "%s Team",
+                otp, appName
+        );
+        sendEmail(toEmail, subject, body);
     }
 
     private void sendEmail(String toEmail, String subject, String body) {
@@ -40,7 +56,7 @@ public class EmailService {
             message.setText(body);
             mailSender.send(message);
         } catch (Exception e) {
-            System.err.println("Failed to send email asynchronously: " + e.getMessage());
+            throw new RuntimeException("Failed to send email: " + e.getMessage());
         }
     }
 }
