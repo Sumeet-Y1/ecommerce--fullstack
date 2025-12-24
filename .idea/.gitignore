@@ -1,3 +1,68 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+# Compiled class files
+*.class
+target/
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log
+logs/
+
+# Package Files
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Application properties with secrets
+application-local.properties
+application-dev.properties
+application-secrets.properties
+
+# Environment variables
+.env
+.env.local
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Spring Boot
+HELP.md
+.springBeans
+
+# Database
+*.db
+*.sqlite
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
