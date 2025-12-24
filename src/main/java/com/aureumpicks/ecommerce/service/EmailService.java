@@ -145,7 +145,7 @@ public class EmailService {
                         <p style="margin-top: 30px; color: #2A2A2A;">Best regards,<br><strong>The AureumPicks Team</strong></p>
                     </div>
                     <div class="footer">
-                        <p>© 2024 AureumPicks. All rights reserved.</p>
+                        <p>© 2025 AureumPicks. All rights reserved.</p>
                         <p>This is an automated email. Please do not reply.</p>
                     </div>
                 </div>
@@ -263,7 +263,7 @@ public class EmailService {
                         <p style="margin-top: 30px; color: #2A2A2A;">Best regards,<br><strong>The AureumPicks Team</strong></p>
                     </div>
                     <div class="footer">
-                        <p>© 2024 AureumPicks. All rights reserved.</p>
+                        <p>© 2025 AureumPicks. All rights reserved.</p>
                         <p>This is an automated email. Please do not reply.</p>
                     </div>
                 </div>
