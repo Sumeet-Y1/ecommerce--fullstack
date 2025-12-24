@@ -22,7 +22,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")  // columnDefnition → columnDefinition
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false, precision = 10, scale = 2)
@@ -37,7 +37,8 @@ public class Product {
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 
-    @Column(precision = 2, scale = 1)
+    // FIXED: Removed scale parameter from Double
+    @Column
     private Double rating = 0.0;
 
     @CreationTimestamp
