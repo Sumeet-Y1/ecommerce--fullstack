@@ -9,8 +9,18 @@ import java.util.Map;
 @RestController
 public class HomeController {
 
-    @GetMapping("/")
-    public Map<String, Object> home() {
+    // Remove the @GetMapping("/") - let Spring serve static index.html instead
+
+    @GetMapping("/health")
+    public Map<String, String> health() {
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "UP");
+        response.put("message", "Application is healthy");
+        return response;
+    }
+
+    @GetMapping("/api")
+    public Map<String, Object> apiInfo() {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         response.put("message", "Aureum Picks E-commerce API is running!");
@@ -20,14 +30,6 @@ public class HomeController {
                 "auth", "/api/auth",
                 "products", "/api/products"
         ));
-        return response;
-    }
-
-    @GetMapping("/health")
-    public Map<String, String> health() {
-        Map<String, String> response = new HashMap<>();
-        response.put("status", "UP");
-        response.put("message", "Application is healthy");
         return response;
     }
 }
