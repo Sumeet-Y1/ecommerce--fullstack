@@ -26,10 +26,18 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/",                      // Add root endpoint
-                                "/health",                // Add health check
-                                "/api/auth/**",           // Auth endpoints
-                                "/api/products/**",       // Add products endpoints
+                                "/",
+                                "/index.html",
+                                "/*.html",
+                                "/*.css",
+                                "/*.js",
+                                "/*.png",
+                                "/*.jpg",
+                                "/*.ico",
+                                "/static/**",
+                                "/health",
+                                "/api/auth/**",
+                                "/api/products/**",
                                 "/error",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**"
