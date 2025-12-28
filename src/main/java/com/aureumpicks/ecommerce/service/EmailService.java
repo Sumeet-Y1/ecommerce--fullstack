@@ -4,6 +4,7 @@ import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,12 @@ public class EmailService {
     @Value("${app.name:AureumPicks}")
     private String appName;
 
-    private final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectionPool(new ConnectionPool(5, 5, TimeUnit.MINUTES))  // Max 5 connections
+            .build();
 
     public void sendVerificationEmail(String toEmail, String otp) {
         logger.info("=== SENDING VERIFICATION EMAIL ===");
@@ -42,7 +48,7 @@ public class EmailService {
         sendEmail(toEmail, subject, htmlContent);
     }
 
-    // ✨ VERIFICATION EMAIL TEMPLATE
+    //  VERIFICATION EMAIL TEMPLATE
     private String getVerificationEmailTemplate(String otp) {
         return String.format("""
             <!DOCTYPE html>
@@ -154,7 +160,7 @@ public class EmailService {
             """, otp);
     }
 
-    // ✨ PASSWORD RESET TEMPLATE
+    //  PASSWORD RESET TEMPLATE
     private String getPasswordResetTemplate(String otp) {
         return String.format("""
             <!DOCTYPE html>
@@ -302,17 +308,20 @@ public class EmailService {
 
             try (Response response = client.newCall(request).execute()) {
                 logger.info("Response Status: {}", response.code());
-                String responseBody = response.body().string();
-                logger.info("Response Body: {}", responseBody);
 
-                if (!response.isSuccessful()) {
-                    throw new RuntimeException("Failed to send email: " + responseBody);
+                if (response.body() != null) {
+                    String responseBody = response.body().string();
+                    logger.info("Response Body: {}", responseBody);
+
+                    if (!response.isSuccessful()) {
+                        throw new RuntimeException("Failed to send email: " + responseBody);
+                    }
                 }
 
-                logger.info("✅ Email sent successfully!");
+                logger.info("Email sent successfully!");
             }
         } catch (IOException e) {
-            logger.error("❌ Failed to send email", e);
+            logger.error("Failed to send email", e);
             throw new RuntimeException("Failed to send email: " + e.getMessage());
         }
     }
