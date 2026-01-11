@@ -729,34 +729,6 @@ If you have any questions or need help, feel free to:
 
 ---
 
-## 🗺️ Roadmap
-
-### Phase 1 (Current) ✅
-- [x] User Authentication with JWT
-- [x] Email OTP Verification
-- [x] Product Catalog
-- [x] Shopping Cart
-- [x] Professional Email Templates
-- [x] Railway Deployment
-
-### Phase 2 (Upcoming) 🚧
-- [ ] Payment Gateway Integration (Razorpay/Stripe)
-- [ ] Order Management System
-- [ ] Admin Dashboard
-- [ ] Product Reviews & Ratings
-- [ ] Wishlist Feature
-- [ ] Order Tracking
-
-### Phase 3 (Future) 🔮
-- [ ] Mobile App (React Native)
-- [ ] Advanced Analytics
-- [ ] Recommendation Engine
-- [ ] Multi-language Support
-- [ ] Social Media Integration
-- [ ] Customer Support Chat
-
----
-
 ### ⭐ Star this repository if you found it helpful!
 
 Made with ❤️ by [Sumeet Yadav](https://github.com/Sumeet-Y1)
