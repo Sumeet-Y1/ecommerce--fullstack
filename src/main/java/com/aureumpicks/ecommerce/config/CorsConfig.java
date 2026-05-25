@@ -1,27 +1,34 @@
-package com.aureumpicks.ecommerce.config;  // confg → config
+package com.aureumpicks.ecommerce.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;  // Confguration → Configuration
-import org.springframework.web.cors.CorsConfiguration;  // CorsConfguration → CorsConfiguration
-import org.springframework.web.cors.CorsConfigurationSource;  // CorsConfgurationSource → CorsConfigurationSource
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;  // UrlBasedCorsConfgurationSource → UrlBasedCorsConfigurationSource
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import java.util.Arrays;
 
-@Configuration  // Confguration → Configuration
-public class CorsConfig {  // CorsConfg → CorsConfig
+@Configuration
+public class CorsConfig {
+
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {  // CorsConfgurationSource, corsConfgurationSource → CorsConfigurationSource, corsConfigurationSource
-        CorsConfiguration configuration = new CorsConfiguration();  // CorsConfguration, confguration → CorsConfiguration, configuration
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));  // confguration → configuration
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));  // confguration → configuration
-        configuration.setAllowedHeaders(Arrays.asList("*"));  // confguration → configuration
-        configuration.setAllowCredentials(true);  // confguration → configuration
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));  // confguration → configuration
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:5173",
+                "http://localhost:3000"
+                // Add the deployed Cloudflare Pages origin here when ready.
+                // "https://aureumpicks.pages.dev",
+                // "https://aureumpicks.com"
+        ));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  // UrlBasedCorsConfgurationSource → UrlBasedCorsConfigurationSource
-        source.registerCorsConfiguration("/**", configuration);  // registerCorsConfguration, confguration → registerCorsConfiguration, configuration
-
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
