@@ -18,7 +18,8 @@ public class CorsConfig {
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "https://aureumpicks.pages.dev"
                 // Add the deployed Cloudflare Pages origin here when ready.
                 // "https://aureumpicks.pages.dev",
                 // "https://aureumpicks.com"
